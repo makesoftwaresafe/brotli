@@ -1554,7 +1554,7 @@ static BROTLI_BOOL AttachCompoundDictionary(
   }
   addon->chunks[addon->num_chunks] = data;
   addon->num_chunks++;
-  addon->total_size += size;
+  addon->total_size += (uint32_t)size;
   addon->chunk_offsets[addon->num_chunks] = addon->total_size;
   return BROTLI_TRUE;
 }
