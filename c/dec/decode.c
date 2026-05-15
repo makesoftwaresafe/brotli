@@ -1527,9 +1527,9 @@ static BrotliDecoderErrorCode BROTLI_NOINLINE CopyUncompressedBlockToOutput(
 static BROTLI_BOOL AttachCompoundDictionary(
     BrotliDecoderState* state, const uint8_t* data, size_t size) {
   BrotliDecoderCompoundDictionary* addon = state->compound_dictionary;
-  /* Actually, result could be BROTLI_TRUE, but it raises uncertainty whether
-   * this chunk is actually attached or not. */
-  if (size == 0) return BROTLI_FALSE;
+  /* Soft lie: no dictionary is attached; i.e. this call is not accounted
+   * towards SHARED_BROTLI_MAX_COMPOUND_DICTS limit. */
+  if (size == 0) return BROTLI_TRUE;
   if (size > SHARED_BROTLI_MAX_RAW_DICT_SIZE) return BROTLI_FALSE;
   if (state->state != BROTLI_STATE_UNINITED) return BROTLI_FALSE;
   if (!addon) {
